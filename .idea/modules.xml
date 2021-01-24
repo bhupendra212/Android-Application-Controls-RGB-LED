@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RGB_LED_Android.iml" filepath="$PROJECT_DIR$/.idea/modules/RGB_LED_Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RGB_LED_Android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RGB_LED_Android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/colorpickerview/RGB_LED_Android.colorpickerview.iml" filepath="$PROJECT_DIR$/.idea/modules/colorpickerview/RGB_LED_Android.colorpickerview.iml" />
+    </modules>
+  </component>
+</project>
