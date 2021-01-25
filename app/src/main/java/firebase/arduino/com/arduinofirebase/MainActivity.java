@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("LED_STATUS","1");
                 Log.e(TAG+" RGB ","("+ RED + GREEN + BLUE +")");
                 tvLED_STATUS.setText("LED IS ON");
+                tvLED_STATUS.setTextColor(Color.GREEN);
             }
         });
         btnOff = (Button)findViewById(R.id.btnOff);
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 myRef.setValue(0);
                 Log.e("LED_STATUS","0");
                 tvLED_STATUS.setText("LED IS OFF");
+                tvLED_STATUS.setTextColor(Color.RED);
             }
         });
         llSelectedColor = (LinearLayout) findViewById(R.id.llSelectedColor);
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 RED = Color.red(envelope.getColor());
                 GREEN = Color.green(envelope.getColor());
                 BLUE = Color.blue(envelope.getColor());
-                tvSelectedColorCode.setText(" Color: "+envelope.getHexCode()+"\n HexCode: "+envelope.getHexCode()+" \n RGB: "+"("+ RED +","+ GREEN +","+ BLUE +")");
+                tvSelectedColorCode.setText(" HexCode: "+envelope.getHexCode()+" \n RGB: "+"("+ RED +","+ GREEN +","+ BLUE +")");
                 database = FirebaseDatabase.getInstance();
                 myRef = database.getReference("LED_STATUS");
                 myRef.setValue(1);
@@ -87,11 +89,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("LED_STATUS","1");
                 Log.e(TAG+" RGB ","("+ RED + GREEN + BLUE +")");
                 tvLED_STATUS.setText("LED IS ON");
+                tvLED_STATUS.setTextColor(Color.GREEN);
             }
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -99,5 +102,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
