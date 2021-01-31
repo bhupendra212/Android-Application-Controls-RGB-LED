@@ -3,8 +3,6 @@ package firebase.arduino.com.arduinofirebase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -28,17 +26,22 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private int RED, GREEN, BLUE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvLED_STATUS  = (TextView)findViewById(R.id.tvLED_STATUS);
-        btnOn = (Button)findViewById(R.id.btnOn);
+        // Create the Firebase database instance
+        database = FirebaseDatabase.getInstance();
+        // Create the child in root database location
+        myRef = database.getReference("LED_STATUS");
+        tvLED_STATUS = (TextView) findViewById(R.id.tvLED_STATUS);
+        btnOn = (Button) findViewById(R.id.btnOn);
         btnOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database = FirebaseDatabase.getInstance();
-                myRef = database.getReference("LED_STATUS");
+                // Write value to database
+                // By sending 1 from app, it will turn ON the LED
                 myRef.setValue(1);
                 myRef = database.getReference("RED");
                 myRef.setValue(RED);
@@ -46,21 +49,20 @@ public class MainActivity extends AppCompatActivity {
                 myRef.setValue(GREEN);
                 myRef = database.getReference("BLUE");
                 myRef.setValue(BLUE);
-                Log.e("LED_STATUS","1");
-                Log.e(TAG+" RGB ","("+ RED + GREEN + BLUE +")");
+                Log.e("LED_STATUS", "1");
+                Log.e(TAG + " RGB ", "(" + RED + GREEN + BLUE + ")");
                 tvLED_STATUS.setText("LED IS ON");
                 tvLED_STATUS.setTextColor(Color.GREEN);
             }
         });
-        btnOff = (Button)findViewById(R.id.btnOff);
+        btnOff = (Button) findViewById(R.id.btnOff);
         btnOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Write a message to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("LED_STATUS");
+                // Write value to database
+                // By sending 0 from app, it will turn OFF the LED
                 myRef.setValue(0);
-                Log.e("LED_STATUS","0");
+                Log.e("LED_STATUS", "0");
                 tvLED_STATUS.setText("LED IS OFF");
                 tvLED_STATUS.setTextColor(Color.RED);
             }
@@ -73,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onColorSelected(ColorEnvelope envelope, boolean fromUser) {
                 llSelectedColor.setBackgroundColor(envelope.getColor());
+                // Get Red, Green & Blue from ColorPickerView
                 RED = Color.red(envelope.getColor());
                 GREEN = Color.green(envelope.getColor());
                 BLUE = Color.blue(envelope.getColor());
-                tvSelectedColorCode.setText(" HexCode: "+envelope.getHexCode()+" \n RGB: "+"("+ RED +","+ GREEN +","+ BLUE +")");
-                database = FirebaseDatabase.getInstance();
-                myRef = database.getReference("LED_STATUS");
+                tvSelectedColorCode.setText(" HexCode: " + envelope.getHexCode() + " \n RGB: " + "(" + RED + "," + GREEN + "," + BLUE + ")");
+                // Turn ON the LED, and pass RGB value to the Firebase Realtime Database
+                // Any change in value trigger the listeners, and LED will response accordingly
                 myRef.setValue(1);
                 myRef = database.getReference("RED");
                 myRef.setValue(RED);
@@ -86,21 +89,11 @@ public class MainActivity extends AppCompatActivity {
                 myRef.setValue(GREEN);
                 myRef = database.getReference("BLUE");
                 myRef.setValue(BLUE);
-                Log.e("LED_STATUS","1");
-                Log.e(TAG+" RGB ","("+ RED + GREEN + BLUE +")");
+                Log.e("LED_STATUS", "1");
+                Log.e(TAG + " RGB ", "(" + RED + GREEN + BLUE + ")");
                 tvLED_STATUS.setText("LED IS ON");
                 tvLED_STATUS.setTextColor(Color.GREEN);
             }
         });
     }
-
-    /*public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }*/
 }
