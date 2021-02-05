@@ -2,7 +2,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
     <com.skydoves.colorpickerview.ColorPickerView
         android:id="@+id/colorPickerView"
         android:layout_width="300dp"
